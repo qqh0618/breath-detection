@@ -13,7 +13,7 @@ extension = sys.argv[2]
 should_not_process_video = int(sys.argv[3])
 video_name = "videos/" + name + "." + extension
 breath_changes_name = "breath_changes_" + name + ".json"
-cap = cv2.VideoCapture(video_name)
+cap = cv2.VideoCapture(0)
 
 # cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FPS, FPS)
@@ -58,17 +58,21 @@ def process_video():
             frames = frames[1:] + [face]
 
         frame = cv2.GaussianBlur(frame, (7, 7), 0)
+
+        aa = y + int(round(1.2 * h))
+        bb = y + int(round(3 * h))
+        cc = x - int(round(w * 0.3))
+        dd = x + int(round(w * 1.4))
         crop_img = frame[
-            y + round(1.2 * h) : y + round(3 * h),
-            x - round(w * 0.3) : x + round(w * 1.4),
+            aa: bb, cc: dd
         ]
         frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 255, 255), 2)
         frame = cv2.rectangle(
             frame,
-            (x - round(w * 0.3), y + round(1.2 * h)),
-            (x + round(w * 1.4), y + round(3 * h)),
+            (cc, aa),
+            (dd, bb),
             (255, 255, 255),
-            2,
+            2
         )
         frame = cv2.rectangle(
             frame,
