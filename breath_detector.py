@@ -13,9 +13,10 @@ extension = sys.argv[2]
 should_not_process_video = int(sys.argv[3])
 video_name = "videos/" + name + "." + extension
 breath_changes_name = "breath_changes_" + name + ".json"
-cap = cv2.VideoCapture(0)
 
-# cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(video_name)  # 本地视频检测
+
+# cap = cv2.VideoCapture(0)  # 摄像头检测
 cap.set(cv2.CAP_PROP_FPS, FPS)
 face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_alt.xml")
 
